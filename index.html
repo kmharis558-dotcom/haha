@@ -638,6 +638,334 @@ section{
         height:130px;
     }
 }
+
+/* =====================================================
+   PREMIUM MOBILE LOCK SCREEN UPGRADE
+===================================================== */
+
+#lock{
+    overflow:hidden;
+    isolation:isolate;
+    background:
+        radial-gradient(circle at 50% 25%, rgba(255,70,140,.18), transparent 28%),
+        radial-gradient(circle at 20% 80%, rgba(150,70,255,.10), transparent 30%),
+        linear-gradient(145deg,#010106 0%,#08030a 48%,#020204 100%);
+}
+
+#lock::before,
+#lock::after{
+    content:"";
+    position:absolute;
+    width:65vw;
+    height:65vw;
+    max-width:420px;
+    max-height:420px;
+    border-radius:50%;
+    border:1px solid rgba(255,100,160,.10);
+    box-shadow:0 0 80px rgba(255,40,120,.05);
+    animation:lockOrbit 10s linear infinite;
+    pointer-events:none;
+}
+
+#lock::after{
+    width:90vw;
+    height:90vw;
+    max-width:600px;
+    max-height:600px;
+    border-color:rgba(255,255,255,.045);
+    animation-duration:16s;
+    animation-direction:reverse;
+}
+
+@keyframes lockOrbit{
+    from{transform:rotate(0deg) scale(1)}
+    50%{transform:rotate(180deg) scale(1.06)}
+    to{transform:rotate(360deg) scale(1)}
+}
+
+.lock-card{
+    width:min(420px,90%);
+    padding:34px 24px 28px;
+    border-radius:34px;
+    position:relative;
+    z-index:3;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.16);
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025));
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.75),
+        0 0 80px rgba(255,30,110,.12),
+        inset 0 1px 0 rgba(255,255,255,.12);
+    animation:lockIn 1.1s cubic-bezier(.16,1,.3,1);
+}
+
+.lock-card::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    background:conic-gradient(
+        from 0deg,
+        transparent 0 25%,
+        rgba(255,80,145,.65),
+        transparent 45% 70%,
+        rgba(255,255,255,.3),
+        transparent 85%
+    );
+    filter:blur(18px);
+    opacity:.45;
+    animation:cardGlow 7s linear infinite;
+    z-index:-1;
+}
+
+@keyframes cardGlow{
+    to{transform:rotate(360deg)}
+}
+
+.lock-card::after{
+    content:"";
+    position:absolute;
+    left:-30%;
+    top:0;
+    width:35%;
+    height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);
+    transform:skewX(-18deg);
+    animation:glassSweep 4.5s ease-in-out infinite;
+    pointer-events:none;
+}
+
+@keyframes glassSweep{
+    0%,55%{left:-35%}
+    85%,100%{left:125%}
+}
+
+.lock-heart{
+    width:92px;
+    height:92px;
+    margin:auto auto 20px;
+    position:relative;
+    font-size:39px;
+    border-radius:50%;
+    background:
+        radial-gradient(circle,rgba(255,80,145,.20),rgba(255,30,100,.04) 65%,transparent 70%);
+    border:1px solid rgba(255,90,150,.55);
+    box-shadow:
+        0 0 0 10px rgba(255,70,140,.025),
+        0 0 35px rgba(255,40,120,.25),
+        inset 0 0 25px rgba(255,80,150,.12);
+    animation:heartPulsePremium 1.8s ease-in-out infinite;
+}
+
+.lock-heart::before,
+.lock-heart::after{
+    content:"";
+    position:absolute;
+    inset:-12px;
+    border:1px solid rgba(255,80,145,.18);
+    border-radius:50%;
+    animation:ringPulse 2.8s ease-out infinite;
+}
+
+.lock-heart::after{
+    inset:-25px;
+    border-color:rgba(255,80,145,.08);
+    animation-delay:.9s;
+}
+
+@keyframes heartPulsePremium{
+    0%,100%{transform:scale(1);filter:brightness(1)}
+    50%{transform:scale(1.08);filter:brightness(1.25)}
+}
+
+@keyframes ringPulse{
+    0%{transform:scale(.75);opacity:.8}
+    100%{transform:scale(1.2);opacity:0}
+}
+
+.lock-card h1{
+    font-size:clamp(34px,9vw,43px);
+    text-shadow:0 0 30px rgba(255,255,255,.10);
+}
+
+.lock-card p{
+    color:#aaa;
+    letter-spacing:2.5px;
+}
+
+.dots{
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    background:rgba(255,255,255,.035);
+    box-shadow:inset 0 0 5px rgba(255,255,255,.08);
+}
+
+.dot.active{
+    animation:dotPop .28s cubic-bezier(.2,1.6,.4,1);
+}
+
+@keyframes dotPop{
+    0%{transform:scale(.4)}
+    70%{transform:scale(1.45)}
+    100%{transform:scale(1.2)}
+}
+
+.keypad{
+    max-width:290px;
+    gap:11px;
+}
+
+.key{
+    height:61px;
+    min-height:61px;
+    border-radius:19px;
+    position:relative;
+    overflow:hidden;
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025));
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.key::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 50% 0%,rgba(255,100,160,.22),transparent 55%);
+    opacity:0;
+    transition:.25s;
+}
+
+.key:hover::before,
+.key:active::before{opacity:1}
+
+.key:active{
+    transform:scale(.91);
+    box-shadow:0 0 25px rgba(255,50,130,.22);
+}
+
+#error{
+    min-height:20px;
+    text-shadow:0 0 12px rgba(255,60,120,.35);
+}
+
+/* Lock-screen floating particles */
+.lock-particle{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 12px rgba(255,110,165,.9);
+    pointer-events:none;
+    animation:particleFloat linear infinite;
+    opacity:.5;
+}
+
+@keyframes particleFloat{
+    0%{transform:translate3d(0,20px,0);opacity:0}
+    20%{opacity:.7}
+    80%{opacity:.45}
+    100%{transform:translate3d(var(--px),-110vh,0);opacity:0}
+}
+
+/* Better mobile sizing */
+@media(max-width:750px){
+    #lock{
+        padding:16px;
+    }
+
+    .lock-card{
+        width:min(390px,94vw);
+        padding:30px 18px 24px;
+        border-radius:30px;
+    }
+
+    .lock-heart{
+        width:82px;
+        height:82px;
+        font-size:34px;
+        margin-bottom:17px;
+    }
+
+    .lock-card h1{
+        font-size:35px;
+    }
+
+    .lock-card p{
+        font-size:9px;
+        letter-spacing:2px;
+        margin-bottom:22px;
+    }
+
+    .keypad{
+        width:100%;
+        max-width:285px;
+        gap:9px;
+    }
+
+    .key{
+        height:57px;
+        min-height:57px;
+        border-radius:17px;
+        font-size:17px;
+    }
+
+    .dot{
+        width:9px;
+        height:9px;
+    }
+}
+
+@media(max-height:700px) and (max-width:750px){
+    .lock-card{
+        padding:20px 17px;
+    }
+
+    .lock-heart{
+        width:68px;
+        height:68px;
+        font-size:29px;
+        margin-bottom:12px;
+    }
+
+    .lock-card h1{
+        font-size:29px;
+    }
+
+    .lock-card p{
+        margin:5px 0 16px;
+    }
+
+    .dots{
+        margin-bottom:16px;
+    }
+
+    .key{
+        height:48px;
+        min-height:48px;
+    }
+}
+
+/* Accessibility / battery friendly behavior */
+@media(prefers-reduced-motion:reduce){
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+    }
+}
+
 </style>
 </head>
 
@@ -657,7 +985,8 @@ section{
 
         <h1>A Private Letter</h1>
 
-        <p>Only one person knows the key</p>
+        <p>ONLY ONE PERSON KNOWS THE KEY</p>
+        <div style="font-size:8px;letter-spacing:3px;color:#555;margin-top:-18px;margin-bottom:20px;">PRIVATE • ENCRYPTED • HEART LOCK</div>
 
         <div class="dots">
             <span class="dot"></span>
@@ -724,7 +1053,7 @@ section{
         </p>
 
         <div class="scroll">
-            TAKE YOUR TIM  dcvdE ↓
+            TAKE YOUR TIME ↓
         </div>
 
     </div>
@@ -1021,6 +1350,81 @@ section{
 
 
 <script>
+
+/* =====================================================
+   PREMIUM LOCK PARTICLES + MOBILE TOUCH EFFECTS
+===================================================== */
+
+(function createLockParticles(){
+    const lockScreen = document.getElementById("lock");
+    if(!lockScreen) return;
+
+    const amount = window.innerWidth < 750 ? 26 : 38;
+
+    for(let i=0;i<amount;i++){
+        const p=document.createElement("i");
+        p.className="lock-particle";
+        p.style.left=(Math.random()*100)+"%";
+        p.style.top=(70+Math.random()*45)+"%";
+        p.style.setProperty("--px",((Math.random()-.5)*180)+"px");
+        p.style.animationDuration=(7+Math.random()*9)+"s";
+        p.style.animationDelay=(-Math.random()*12)+"s";
+        p.style.transform=`scale(${.5+Math.random()*1.8})`;
+        lockScreen.appendChild(p);
+    }
+})();
+
+document.addEventListener("pointerdown",function(e){
+    const button=e.target.closest(".key");
+    if(!button) return;
+
+    const ripple=document.createElement("span");
+    ripple.style.position="absolute";
+    ripple.style.width="8px";
+    ripple.style.height="8px";
+    ripple.style.borderRadius="50%";
+    ripple.style.left=e.clientX-button.getBoundingClientRect().left+"px";
+    ripple.style.top=e.clientY-button.getBoundingClientRect().top+"px";
+    ripple.style.background="rgba(255,110,165,.55)";
+    ripple.style.transform="translate(-50%,-50%) scale(1)";
+    ripple.style.pointerEvents="none";
+
+    button.appendChild(ripple);
+
+    ripple.animate(
+        [
+            {transform:"translate(-50%,-50%) scale(1)",opacity:.8},
+            {transform:"translate(-50%,-50%) scale(18)",opacity:0}
+        ],
+        {duration:550,easing:"ease-out"}
+    );
+
+    setTimeout(()=>ripple.remove(),600);
+});
+
+/* Shake + flash the lock card when the password is wrong */
+const originalCheck = window.check;
+window.check = function(){
+    const before = entered;
+    originalCheck();
+
+    if(before === PASSWORD) return;
+
+    const card=document.querySelector(".lock-card");
+    if(card){
+        card.animate(
+            [
+                {transform:"translateX(0) rotate(0)"},
+                {transform:"translateX(-8px) rotate(-1deg)"},
+                {transform:"translateX(8px) rotate(1deg)"},
+                {transform:"translateX(-5px) rotate(-.5deg)"},
+                {transform:"translateX(0) rotate(0)"}
+            ],
+            {duration:420,easing:"ease-out"}
+        );
+    }
+};
+
 
 /* =====================================================
    PASSWORD
